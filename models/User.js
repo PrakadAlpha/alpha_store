@@ -31,12 +31,13 @@ const userSchema = mongoose.Schema({
   },
   cart:{
     type: [mongoose.Schema.ObjectId],
-    ref: 'Product'
+    ref: 'Product',
+    default: []
   },
   order: {
-    type: mongoose.Schema.ObjectId,
+    type: [mongoose.Schema.ObjectId],
     ref: 'Order',
-    required: true
+    default: []
   },
   transactions:{
     type: Array,
@@ -60,7 +61,7 @@ userSchema.pre('save', async function(next){
 
 //Signing the JWT token with the _id of user.
 userSchema.methods.getSignedJwtToken = function(){
- return jwt.sign({id: this._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES});
+ return jwt.sign({id: this._id, role: "user"}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES});
 };
 
 //Comparing the entered password with hashed password

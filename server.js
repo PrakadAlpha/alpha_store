@@ -7,8 +7,8 @@ const path = require('path');
 const connectDb = require('./config/db');
 const users = require('./routes/auth');
 const vendors = require('./routes/vendors');
-const products = require('./routes/products');
-const orders = require('./routes/orders');
+// const products = require('./routes/products');
+// const orders = require('./routes/orders');
 
 //Initialize express app 
 const app = express();
@@ -42,8 +42,8 @@ app.use(express.static(path.join(__dirname, 'static')));
 //Routing
 app.use('/api/users', users);
 app.use('/api/vendors', vendors);
-app.use('/api/products', products);
-app.use('/api/orders', orders);
+// app.use('/api/products', products);
+// app.use('/api/orders', orders);
 
 //Redirect all other urls to client(frontend)
 app.get("*", (req, res) => {

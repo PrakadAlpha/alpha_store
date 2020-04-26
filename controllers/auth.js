@@ -7,9 +7,9 @@ const User = require('../models/User');
 // @Desc  : Handling the user registration
 exports.register = asyncHandlers(async (req, res, next) => {
 
-  const {name, email, password, role}  = req.body;
+  const {name, email, password, address}  = req.body;
   
-  if(!email || !password){
+  if(!email || !password || !name || !address){
     return res.status(400).json({success: false, message: "Please enter all the fields."});
   }
   
@@ -20,7 +20,7 @@ exports.register = asyncHandlers(async (req, res, next) => {
   }
 
   user = await User.create({
-    name, email, password, role
+    name, email, password, address
   });
 
   const token = user.getSignedJwtToken();

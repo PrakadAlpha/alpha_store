@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const asyncHandlers = require('./async');
 const User = require('../models/User');
+const Vendor = require('../models/Vendor');
 
 // Middleware to protect the route by validating the user token 
 // from the Authorization header
@@ -18,7 +19,14 @@ exports.protect = asyncHandlers(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id);
+    console.log('role:', decoded.role)
+    if(decoded.role === 'user'){
+      req.user = await User.findById(decoded.id);
+    }
+    else{
+      req.user = await Vendor.findById(decoded.id);
+    }
+
     next();
   } catch (err) {
     return res.status(401).json({success: false, data: "Not Authorized"});

@@ -13,6 +13,7 @@ const Navbar = ({title, icon}) => {
     dispatch({type: LOGOUT});
   }
 
+
   const authLinks = (
     <>
       <li>
@@ -26,10 +27,10 @@ const Navbar = ({title, icon}) => {
   const guestLinks = (
     <>
        <li>
-          <Link to="/login">Login</Link>
+          <Link to="/users/login">Login</Link>
         </li>
         <li>
-          <Link to="/register">Register</Link>
+          <Link to="/users/register">Register</Link>
         </li>
     </>
   )
@@ -40,6 +41,11 @@ const Navbar = ({title, icon}) => {
       <Link to="/"><i className={icon}/> {title}</Link>
       </h2>
       <ul>
+      <li>
+        <Link to='/vendors/register'>
+        <i className="fas fa-bullhorn"><span className="hide-sm">Sell Products</span></i>
+        </Link>
+      </li>
         {auth.isAuthenticated ? authLinks : guestLinks}  
       </ul>       
     </div>

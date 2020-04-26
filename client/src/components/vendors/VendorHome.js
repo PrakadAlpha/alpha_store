@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import setAuthToken from '../../utils/setAuthToken';
-import { USER_LOADED, AUTH_ERROR } from '../../redux/types';
 import axios from 'axios';
-import PropTypes from 'prop-types'
+import { USER_LOADED, AUTH_ERROR } from '../../redux/types';
 
-const LandingPage = () => {
-
+const VendorHome = ({history}) => {
+  
   const dispatch = useDispatch();
-
-  const auth = useSelector(state => state.auth);
+  const auth = useSelector(state => state.auth)
 
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-
     if(!auth.isAuthenticated){
-      setUsername('');
+      history.push('/');
     }
-
     if(localStorage.token)
       loadUsers();
     // eslint-disable-next-line
-  }, [auth.isAuthenticated]);
-  
+  }, [ auth.isAuthenticated]);
+
   const loadUsers = async () =>{ 
       setAuthToken(localStorage.token);
       try {
-        const res = await axios.get('/api/users/me');
+        const res = await axios.get('/api/vendors/me');
         setUsername(res.data.data.name);
         dispatch({type: USER_LOADED, payload: res.data});
       } catch (err) {
@@ -38,10 +34,11 @@ const LandingPage = () => {
   return (
     <>
     <div style={{textAlign: "center"}}>
-      Hi {username ? username : "GuestUser"}
+      Hi {username} Vendor Home Page
     </div>
     </>
   )
+ 
 }
 
-export default LandingPage
+export default VendorHome
