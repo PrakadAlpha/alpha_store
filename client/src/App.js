@@ -11,6 +11,7 @@ import Alerts from './components/partials/Alerts'
 import VendorRegister from './components/vendors/VendorRegister'
 import VendorLogin from './components/vendors/VendorLogin'
 import VendorHome from './components/vendors/VendorHome'
+import UploadProduct from './components/vendors/UploadProduct';
 
 
 if(localStorage.token){
@@ -28,9 +29,11 @@ function App() {
         <Route exact path='/' component={LandingPage}/>
         <Route exact path='/vendors/register' component={VendorRegister}/>
         <Route exact path='/vendors/login' component={VendorLogin}/>
+        {/* <Route exact path='/vendors/uploadProduct' component={UploadProduct}/> */}
         <Route exact path='/vendors/home' component={VendorHome}/>
         <Route exact path='/users/register' component={Register}/>
         <Route exact path='/users/login' component={Login}/>
+        /vendors/uploadProduct
       </Switch>
      </div>     
    </Router>

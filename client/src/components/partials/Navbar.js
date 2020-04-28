@@ -32,6 +32,11 @@ const Navbar = ({title, icon}) => {
         <li>
           <Link to="/users/register">Register</Link>
         </li>
+        <li>
+        <Link to='/vendors/register'>
+        <i className="fas fa-bullhorn"><span className="hide-sm">Sell Products</span></i>
+        </Link>
+      </li>
     </>
   )
 
@@ -41,11 +46,6 @@ const Navbar = ({title, icon}) => {
       <Link to="/"><i className={icon}/> {title}</Link>
       </h2>
       <ul>
-      <li>
-        <Link to='/vendors/register'>
-        <i className="fas fa-bullhorn"><span className="hide-sm">Sell Products</span></i>
-        </Link>
-      </li>
         {auth.isAuthenticated ? authLinks : guestLinks}  
       </ul>       
     </div>

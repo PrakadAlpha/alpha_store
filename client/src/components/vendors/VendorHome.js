@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { USER_LOADED, AUTH_ERROR } from '../../redux/types';
 import setAuthToken from '../../utils/setAuthToken';
 import axios from 'axios';
-import { USER_LOADED, AUTH_ERROR } from '../../redux/types';
+import VendorMenu from './VendorMenu';
+import UploadProduct from './UploadProduct';
+import OrdersList from './OrdersList';
+import ProductsList from './ProductsList';
+import VendorWelcome from './VendorWelcome';
+
 
 const VendorHome = ({history}) => {
   
@@ -32,11 +39,17 @@ const VendorHome = ({history}) => {
       }
   }
   return (
-    <>
-    <div style={{textAlign: "center"}}>
-      Hi {username} Vendor Home Page
-    </div>
-    </>
+    <Router> 
+     <VendorMenu />
+     <div className="container">  
+      <Switch> 
+        <Route exact path='/vendors/home' component={VendorWelcome}/>
+        <Route exact path='/vendors/productsList' component={ProductsList}/>
+        <Route exact path='/vendors/uploadProduct' component={UploadProduct}/>
+        <Route exact path='/vendors/ordersList' component={OrdersList}/>
+      </Switch>
+     </div>     
+    </Router>
   )
  
 }

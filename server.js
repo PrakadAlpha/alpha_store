@@ -7,7 +7,7 @@ const path = require('path');
 const connectDb = require('./config/db');
 const users = require('./routes/auth');
 const vendors = require('./routes/vendors');
-// const products = require('./routes/products');
+const products = require('./routes/products');
 // const orders = require('./routes/orders');
 
 //Initialize express app 
@@ -37,18 +37,25 @@ app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
 //Serving assets
-app.use(express.static(path.join(__dirname, 'static')));
+// app.use(express.static(path.join(__dirname, 'static')));
 
 //Routing
 app.use('/api/users', users);
 app.use('/api/vendors', vendors);
-// app.use('/api/products', products);
+app.use('/api/products', products);
 // app.use('/api/orders', orders);
 
+
+if(process.env.NODE_ENV === 'production'){
+  
+  app.use(express.static('client/build'));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  });
+}
+
 //Redirect all other urls to client(frontend)
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
-});
 
 //Configure the port
 const PORT = process.env.PORT || 5001;
